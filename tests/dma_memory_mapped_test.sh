@@ -1,7 +1,7 @@
 #!/bin/bash
 display_help() {
-	echo "$0 <xdma id> <io size> <io count> <h2c #> <c2h #>"
-	echo -e "xdma id:\txdma[N] "
+	echo "$0 <sqrldma id> <io size> <io count> <h2c #> <c2h #>"
+	echo -e "sqrldma id:\txdma[N] "
 	echo -e "io size:\tdma transfer size in byte"
 	echo -e "io count:\tdma transfer count"
        	echo -e "h2c #:\tnumber of h2c channels"

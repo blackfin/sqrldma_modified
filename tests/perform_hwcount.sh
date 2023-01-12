@@ -11,16 +11,16 @@ rm hw_log_h2c.txt
 rm hw_log_c2h.txt
 echo "h2cchannels $h2cchannels"
 echo "c2hchannels $c2hchannels"
-h2c=/dev/xdma0_h2c_0
-c2h=/dev/xdma0_c2h_0
+h2c=/dev/sqrldma0_h2c_0
+c2h=/dev/sqrldma0_c2h_0
 iter=1
 
 out_h2c=hw_log_h2c.txt
 out_c2h=hw_log_c2h.txt
 for ((i=0;i<h2cchannels;i++))
 do
-h2c=/dev/xdma0_h2c_$i
-c2h=/dev/xdma0_c2h_$i
+h2c=/dev/sqrldma0_h2c_$i
+c2h=/dev/sqrldma0_c2h_$i
 byte=64
 for ((j=0; j<=16; j++)) do
 	echo "** HW H2C = $h2c bytecount = $byte and iteration = $iter" | tee -a $out_h2c

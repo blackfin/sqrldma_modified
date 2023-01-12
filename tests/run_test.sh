@@ -1,5 +1,18 @@
 #!/bin/bash
 
+
+# exit when any command fails
+set -e
+
+until [ -e /dev/sqrldma0_user ]
+do
+    echo "Waiting for SQRLDMA device..."
+    sleep 1
+done
+
+echo "--->Checking version, voltages, etc"
+./test-general.py --id 215+ --version 458758
+
 #---------------------------------------------------------------------
 # Script variables
 #---------------------------------------------------------------------
@@ -21,14 +34,14 @@ transferCount=1
 isStreaming=0
 h2cChannels=0
 for ((i=0; i<=3; i++)); do
-	v=`$tool_path/reg_rw /dev/xdma0_control 0x0${i}00 w`
+	v=`$tool_path/reg_rw /dev/sqrldma0_control 0x0${i}00 w`
 	returnVal=$?
 	if [ $returnVal -ne 0 ]; then
 		break;
 	fi
 
 	#v=`echo $v | grep -o  '): 0x[0-9a-f]*'`
-	statusRegVal=`$tool_path/reg_rw /dev/xdma0_control 0x0${i}00 w | grep "Read.*:" | sed 's/Read.*: 0x\([a-z0-9]*\)/\1/'`
+	statusRegVal=`$tool_path/reg_rw /dev/sqrldma0_control 0x0${i}00 w | grep "Read.*:" | sed 's/Read.*: 0x\([a-z0-9]*\)/\1/'`
 	channelId=${statusRegVal:0:3}
 	streamEnable=${statusRegVal:4:1}
 
@@ -44,14 +57,14 @@ echo "Info: Number of enabled h2c channels = $h2cChannels"
 # Find enabled c2hChannels
 c2hChannels=0
 for ((i=0; i<=3; i++)); do
-	v=`$tool_path/reg_rw /dev/xdma0_control 0x1${i}00 w`
+	v=`$tool_path/reg_rw /dev/sqrldma0_control 0x1${i}00 w`
 	returnVal=$?
 	if [ $returnVal -ne 0 ]; then
 		break;
 	fi
 
-	$tool_path/reg_rw /dev/xdma0_control 0x1${i}00 w | grep "Read.*: 0x1fc" > /dev/null
-	statusRegVal=`$tool_path/reg_rw /dev/xdma0_control 0x1${i}00 w | grep "Read.*:" | sed 's/Read.*: 0x\([a-z0-9]*\)/\1/'`
+	$tool_path/reg_rw /dev/sqrldma0_control 0x1${i}00 w | grep "Read.*: 0x1fc" > /dev/null
+	statusRegVal=`$tool_path/reg_rw /dev/sqrldma0_control 0x1${i}00 w | grep "Read.*:" | sed 's/Read.*: 0x\([a-z0-9]*\)/\1/'`
 	channelId=${statusRegVal:0:3}
 
 	# there will NOT be a mix of MM & ST channels, so no need to check
@@ -80,7 +93,8 @@ testError=0
 if [ $isStreaming -eq 0 ]; then
 
 	# Run the PCIe DMA memory mapped write read test
-	./dma_memory_mapped_test.sh xdma0 $transferSize $transferCount $h2cChannels $c2hChannels
+	echo "Perform testing on the PCIe DMA core = $transferSize $transferCount $h2cChannels $c2hChannels"
+	./dma_memory_mapped_test.sh sqrldma0 $transferSize $transferCount $h2cChannels $c2hChannels
 	returnVal=$?
 	 if [ $returnVal -eq 1 ]; then
 		testError=1

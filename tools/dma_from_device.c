@@ -23,11 +23,11 @@
 #include <sys/types.h>
 #include <sys/ioctl.h>
 
-#include "../xdma/cdev_sgdma.h"
+#include "../sqrldma/cdev_sgdma.h"
 
 #include "dma_utils.c"
 
-#define DEVICE_NAME_DEFAULT "/dev/xdma0_c2h_0"
+#define DEVICE_NAME_DEFAULT "/dev/sqrldma0_c2h_0"
 #define SIZE_DEFAULT (32)
 #define COUNT_DEFAULT (1)
 

@@ -30,13 +30,13 @@
 #include "xdma_cdev.h"
 #include "version.h"
 
-#define DRV_MODULE_NAME		"xdma"
-#define DRV_MODULE_DESC		"Xilinx XDMA Reference Driver"
+#define DRV_MODULE_NAME		"sqrldma"
+#define DRV_MODULE_DESC		"SQRL Accelerators"
 
 static char version[] =
 	DRV_MODULE_DESC " " DRV_MODULE_NAME " v" DRV_MODULE_VERSION "\n";
 
-MODULE_AUTHOR("Xilinx, Inc.");
+MODULE_AUTHOR("SQRL");
 MODULE_DESCRIPTION(DRV_MODULE_DESC);
 MODULE_VERSION(DRV_MODULE_VERSION);
 MODULE_LICENSE("Dual BSD/GPL");
@@ -44,6 +44,7 @@ MODULE_LICENSE("Dual BSD/GPL");
 /* SECTION: Module global variables */
 static int xpdev_cnt;
 
+/*
 static const struct pci_device_id pci_ids[] = {
 	{ PCI_DEVICE(0x10ee, 0x9048), },
 	{ PCI_DEVICE(0x10ee, 0x9044), },
@@ -108,12 +109,31 @@ static const struct pci_device_id pci_ids[] = {
 #ifdef INTERNAL_TESTING
 	{ PCI_DEVICE(0x1d0f, 0x1042), 0},
 #endif
-	/* aws */
+	
 	{ PCI_DEVICE(0x1d0f, 0xf000), },
 	{ PCI_DEVICE(0x1d0f, 0xf001), },
 
 	{0,}
 };
+*/
+
+static const struct pci_device_id pci_ids[] = {
+	{ PCI_DEVICE(0x1e24, 0x0001), },  // Generic SQRL XDMA device 
+	{ PCI_DEVICE(0x1e24, 0x0100), },  // Acorn 101 rev A (low power)
+	{ PCI_DEVICE(0x1e24, 0x0101), },  // Acorn 101
+	{ PCI_DEVICE(0x1e24, 0x0214), },  // Acorn 215 rev A (low power)
+	{ PCI_DEVICE(0x1e24, 0x0215), },  // Acorn 215
+	{ PCI_DEVICE(0x1e24, 0x021F), },  // Acorn 215+
+	{ PCI_DEVICE(0x1e24, 0x0475), },  // Acorn Pro
+	{ PCI_DEVICE(0x1e24, 0x047F), },  // Acorn Pro+ (-2/8GB)
+	{ PCI_DEVICE(0x1e24, 0x1525), },  // BCU-1525
+	{ PCI_DEVICE(0x1e24, 0x1533), },  // ForestKitten
+	{ PCI_DEVICE(0x1e24, 0x9024), },  // Generic- XDMA defaults to this
+	{ PCI_DEVICE(0x10ee, 0x7024), },
+	{0,}
+};
+
+
 MODULE_DEVICE_TABLE(pci, pci_ids);
 
 static void xpdev_free(struct xdma_pci_dev *xpdev)

@@ -24,7 +24,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-#include "../xdma/cdev_sgdma.h"
+#include "../sqrldma/cdev_sgdma.h"
 
 struct xdma_performance_ioctl perf;
 
@@ -45,7 +45,7 @@ static void usage(const char* name)
   int i = 0;
   printf("%s\n\n", name);
   printf("usage: %s [OPTIONS]\n\n", name);
-  printf("Performance test for XDMA SGDMA engine.\n\n");
+  printf("Performance test for sqrldma SGDMA engine.\n\n");
 
   printf("  -%c (--%s) device\n", long_opts[i].val, long_opts[i].name); i++;
   printf("  -%c (--%s) incremental\n", long_opts[i].val, long_opts[i].name); i++;
@@ -72,7 +72,7 @@ static int verbosity = 0;
 int main(int argc, char *argv[])
 {
   int cmd_opt;
-  char *device = "/dev/xdma/card0/h2c0";
+  char *device = "/dev/sqrldma/card0/h2c0";
   uint32_t size = 32768;
   uint32_t count = 1;
   char *filename = NULL;
@@ -119,7 +119,7 @@ int test_dma(char *device_name, int size, int count)
   int rc = 0;
   int fd = open(device_name, O_RDWR);
   if (fd < 0) {
-	  printf("FAILURE: Could not open %s. Make sure xdma device driver is loaded and you have access rights (maybe use sudo?).\n", device_name);
+	  printf("FAILURE: Could not open %s. Make sure sqrldma device driver is loaded and you have access rights (maybe use sudo?).\n", device_name);
 	  exit(1);
   }
 

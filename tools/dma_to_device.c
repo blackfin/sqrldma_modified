@@ -24,7 +24,7 @@
 #include <sys/types.h>
 #include <sys/ioctl.h>
 
-#include "../xdma/cdev_sgdma.h"
+#include "../sqrldma/cdev_sgdma.h"
 
 #include "dma_utils.c"
 
@@ -42,7 +42,7 @@ static struct option const long_opts[] = {
 	{0, 0, 0, 0}
 };
 
-#define DEVICE_NAME_DEFAULT "/dev/xdma0_h2c_0"
+#define DEVICE_NAME_DEFAULT "/dev/sqrldma0_h2c_0"
 #define SIZE_DEFAULT (32)
 #define COUNT_DEFAULT (1)
 

@@ -33,6 +33,23 @@
 #include "xdma_thread.h"
 
 
+/* SECTION: Module licensing */
+
+#ifdef __LIBXDMA_MOD__
+#include "version.h"
+#define DRV_MODULE_NAME		"libsqrldma"
+#define DRV_MODULE_DESC		"SQRL Accelerators Base Driver"
+#define DRV_MODULE_RELDATE	"Feb. 2018"
+
+static char version[] =
+        DRV_MODULE_DESC " " DRV_MODULE_NAME " v" DRV_MODULE_VERSION "\n";
+
+MODULE_AUTHOR("SQRL");
+MODULE_DESCRIPTION(DRV_MODULE_DESC);
+MODULE_VERSION(DRV_MODULE_VERSION);
+MODULE_LICENSE("Dual BSD/GPL");
+#endif
+
 /* Module Parameters */
 static unsigned int poll_mode;
 module_param(poll_mode, uint, 0644);

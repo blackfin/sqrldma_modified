@@ -20,7 +20,7 @@ for ((i=0; i<$channelPairs; i++))
 do
   rm -f data/output_datafile${i}_4K.bin
   echo "Info: DMA setup to read from c2h channel $i. Waiting on write data to channel $i."
-  $tool_path/dma_from_device -d /dev/xdma0_c2h_${i} -f data/output_datafile${i}_4K.bin -s $transferSize -c $transferCount &
+  $tool_path/dma_from_device -d /dev/sqrldma0_c2h_${i} -f data/output_datafile${i}_4K.bin -s $transferSize -c $transferCount &
 done
 
 # Wait to make sure the DMA is ready to receive data.
@@ -31,7 +31,7 @@ sleep 1s
 for ((i=0; i<$channelPairs; i++))
 do
   echo "Info: Writing to h2c channel $i. This will also start reading data on c2h channel $i."
-  $tool_path/dma_to_device -d /dev/xdma0_h2c_${i} -f data/datafile${i}_4K.bin -s $transferSize -c $transferCount &
+  $tool_path/dma_to_device -d /dev/sqrldma0_h2c_${i} -f data/datafile${i}_4K.bin -s $transferSize -c $transferCount &
 done
 
 # Wait for the current transactions to complete
