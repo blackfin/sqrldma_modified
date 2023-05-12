@@ -56,7 +56,7 @@ Directory and file description:
 
 Usage:
   - Change directory to the driver directory:
-        - cd sqrldma_modified
+  - cd sqrldma_modified
   - Compile and install the kernel module driver. Working on Ubuntu 22.04.2 LTS 5.15.0-71-generic
         - sudo ./build-install-run.sh
   - Change directory to the tools directory.
