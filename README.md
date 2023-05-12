@@ -56,21 +56,18 @@ Directory and file description:
 
 Usage:
   - Change directory to the driver directory.
-        cd sqrldma
-  - Compile and install the kernel module driver.
-        make install
+        cd sqrldma_modified
+  - Compile and install the kernel module driver. Working on Ubuntu 22.04.2 LTS 5.15.0-71-generic
+        sudo ./build-install-run.sh
   - Change directory to the tools directory.
         cd tools
   - Compile the provided example test tools.
         make
-  - Copy the provided driver rules from the etc directory to the /etc/ directory
-    on your system.
-        cp ../etc/udev/rules.d/* /etc/udev/rules.d/
   - Load the kernel module driver:
 	a. modprobe sqrldma
 	b. using the provided script.
 		cd tests
-        	./load_driver.sh
+        	sudo ./load_driver.sh
   - Run the provided test script to generate basic DMA traffic.
         ./run_test.sh
   - Check driver Version number
