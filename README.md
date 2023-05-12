@@ -56,23 +56,23 @@ Directory and file description:
 
 Usage:
   - Change directory to the driver directory:
-  - cd sqrldma_modified
+      - cd sqrldma_modified
   - Compile and install the kernel module driver. Working on Ubuntu 22.04.2 LTS 5.15.0-71-generic
-        - sudo ./build-install-run.sh
+      - sudo ./build-install-run.sh
   - Change directory to the tools directory.
-        - cd tools
+      - cd tools
   - Compile the provided example test tools.
-        - make
+      - make
   - Load the kernel module driver:
-	- a. modprobe sqrldma
-	- b. using the provided script.
-		- cd tests
-        	- sudo ./load_driver.sh
+      - a. modprobe sqrldma
+      - b. using the provided script.
+          - cd tests
+              - sudo ./load_driver.sh
   - Run the provided test script to generate basic DMA traffic.
-        - ./run_test.sh
+      - ./run_test.sh
   - Check driver Version number
-        - modinfo sqrldma (or)
-        - modinfo ../sqrldma/sqrldma.ko    
+      - modinfo sqrldma (or)
+      - modinfo ../sqrldma/sqrldma.ko    
 
 Updates and Backward Compaitiblity:
   - The following features were added to the PCIe DMA IP and driver in Vivado
